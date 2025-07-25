@@ -1,17 +1,14 @@
 import "./styles.css";
-import PageHeader from "./components/PageHeader.tsx";
+import { Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing.tsx";
+import Edit from "./pages/Edit.tsx";
 
 function App() {
   return <>
-  <PageHeader></PageHeader>
-  <Landing/>
-  <img
-        src="/assets/images/backgroundImage.jpg"
-        alt=""
-        aria-hidden="true"
-        className="full-width"
-      ></img>
+  <Routes>
+      <Route path="/" element={<Landing />} />
+      <Route path="/edit" element={<Edit />} />
+    </Routes>
   </>;
 }
 

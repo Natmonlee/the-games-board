@@ -30,3 +30,15 @@ p {
   text-align: center;
   text-shadow: 2px 2px 5px rgba(212, 175, 55, 0.438);
 }
+
+.postContainer {
+    display: flex;
+    justify-content: center;
+    
+}
+
+.post {
+    border: 1px solid black;
+    width: 90%;
+    margin: 10px;
+}

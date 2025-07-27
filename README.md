@@ -1,5 +1,8 @@
 # React + TypeScript + Vite
 
+<a href="https://www.flaticon.com/free-icons/meeple" title="meeple icons">Meeple icons created by WhoCon - Flaticon</a>
+
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

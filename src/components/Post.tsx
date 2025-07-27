@@ -1,6 +1,9 @@
 import type BlogPost from "../types/BlogPost.ts";
 
-const Post = ({ postData }: { postData: BlogPost }) => {
+type Props = {
+  postData: BlogPost;
+};
+const Post = ({ postData }: Props) => {
   const { content, author, tagline, createdAt } = postData;
   console.log(content, author, tagline);
 

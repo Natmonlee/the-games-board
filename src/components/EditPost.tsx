@@ -3,6 +3,8 @@ import type BlogPost from "../types/BlogPost.ts";
 import PageHeader from "./PageHeader.tsx";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Button, TextField } from "@mui/material";
+import { pink } from "@mui/material/colors";
 
 type Props = {
   postId?: string;
@@ -13,7 +15,6 @@ const EditPost = ({ postId }: Props) => {
   const [authorValue, setAuthorValue] = useState<string>();
   const [taglineValue, setTaglineValue] = useState<string>();
   const [contentValue, setContentValue] = useState<string>();
-  const [createdAt, setCreatedAt] = useState<Date>();
 
   const navigate = useNavigate();
 
@@ -25,14 +26,15 @@ const EditPost = ({ postId }: Props) => {
     }
     const fetchPost = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/post");
-        const allBlogPosts: BlogPost[] = response.data;
-        const singleBlogPost: BlogPost = allBlogPosts[0];
+        const response = await axios.get(
+          `http://localhost:3000/post/${postId}`
+        );
+        const singleBlogPost: BlogPost = response.data;
 
         setAuthorValue(singleBlogPost.author);
         setTaglineValue(singleBlogPost.tagline);
+        console.log(singleBlogPost.content);
         setContentValue(singleBlogPost.content);
-        setCreatedAt(singleBlogPost.createdAt);
         setLoaded(true);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -42,42 +44,107 @@ const EditPost = ({ postId }: Props) => {
     fetchPost();
   }, [postId]);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    console.log(postId);
     if (postId) {
-      console.log("SUBMITTING DATA!");
+      await axios.patch(`http://localhost:3000/post/${postId}`, {
+        author: authorValue,
+        tagline: taglineValue,
+        content: contentValue,
+      });
       navigate(`/viewPost/${postId}`);
     } else {
-      console.log("SUBMITTING DATA!");
+      await axios.post("http://localhost:3000/post", {
+        author: authorValue,
+        tagline: taglineValue,
+        content: contentValue,
+      });
+      navigate("/");
+    }
+  };
+
+  const handleCancel = () => {
+    if (postId) {
+      navigate(`/viewPost/${postId}`);
+    } else {
       navigate("/");
     }
   };
 
   if (loaded) {
     return (
-      <>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
         <PageHeader />
+
         <form className="post" onSubmit={handleSubmit}>
-          <input
+          <div style={{display: 'flex', flexDirection: 'column'}}>
+          <span style={{fontSize: '14px'}}><i>Author</i></span>
+          <TextField
+            sx={{ '& .MuiInputBase-input': { padding: "4px 8px" } }}
+            style={{width: '30%'}}
+            className="textField"
+            variant="outlined"
+            required
+            onChange={(e) => setAuthorValue(e.target.value)}
+            value={authorValue}
+          />
+          </div>
+          <div style={{display: 'flex', flexDirection: 'column'}}>
+          <span style={{fontSize: '14px'}}><i>Tagline</i></span>
+          <TextField
+            sx={{ '& .MuiInputBase-input': { padding: "4px 8px" } }}
+            style={{width: '50%'}}
+            className="textField"
+            variant="outlined"
+            required
             onChange={(e) => setTaglineValue(e.target.value)}
             value={taglineValue}
-          ></input>
-          <div>
-            <input
-              onChange={(e) => setAuthorValue(e.target.value)}
-              value={authorValue}
-            ></input>
-            {createdAt ? (
-              <time>{new Date(createdAt).toLocaleDateString()}</time>
-            ) : null}
+          />
           </div>
-          <textarea
+          <div style={{display: 'flex', flexDirection: 'column'}}>
+          <span style={{fontSize: '14px'}}><i>Content</i></span>
+          <TextField
+            slotProps={{
+              input: {
+                style: {
+                  padding: "4px 8px",
+                },
+              },
+            }}
+            minRows={3}
+            className="textField"
+            variant="outlined"
+            required
+            multiline
             onChange={(e) => setContentValue(e.target.value)}
             value={contentValue}
-          ></textarea>
-          <button type="submit">CLICK ME</button>
+          />
+          </div>
+          <div style={{ display: "flex", gap: "20px" }}>
+            <Button
+              variant="contained"
+              type="submit"
+              style={{ backgroundColor: "	#1E7F84" }}
+            >
+              {postId ? "Edit" : "Create"} Post
+            </Button>
+            <Button
+              style={{ backgroundColor: "#A09B92" }}
+              variant="contained"
+              onClick={handleCancel}
+            >
+              Cancel
+            </Button>
+          </div>
         </form>
-      </>
+      </div>
     );
   }
 };

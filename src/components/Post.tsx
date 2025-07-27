@@ -5,18 +5,29 @@ type Props = {
 };
 const Post = ({ postData }: Props) => {
   const { content, author, tagline, createdAt } = postData;
-  console.log(content, author, tagline);
 
   const timestamp = new Date(createdAt);
 
   return (
     <article className="post">
-      <h2>{tagline}</h2>
-      <div>
-        <span>{author}</span>
-        <time>{timestamp.toLocaleDateString()}</time>
+      <h2 style={{padding: '0px 20px'}} >{tagline}</h2>
+      <div style={{ display: "flex", fontSize: "14px", padding: '0px 20px' }}>
+        <span>
+          <i>{author}</i>
+        </span>
+        <time> - {timestamp.toLocaleDateString()}</time>
       </div>
-      <p>{content}</p>
+      <p
+        style={{
+          backgroundColor: "#fbf1dc",
+          padding: "10px",
+          margin: "0px 20px",
+          border: "1px solid #D6D0C4",
+          borderRadius: "4px",
+        }}
+      >
+        {content}
+      </p>
     </article>
   );
 };

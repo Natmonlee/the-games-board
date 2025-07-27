@@ -1,25 +1,26 @@
 import PageHeader from "../components/PageHeader.tsx";
 import Post from "../components/Post.tsx";
 import type BlogPost from "../types/BlogPost.ts";
-import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
+import { Button } from "@mui/material";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-import { useParams } from "react-router-dom";
 
 const ViewPost = () => {
   const { postId } = useParams();
   const [blogPost, setBlogPost] = useState<BlogPost>();
-  const params = useParams();
-  console.log(params)
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (postId) {
       const fetchPost = async () => {
         try {
-          const response = await axios.get("http://localhost:3000/post");
-          const allBlogPosts: BlogPost[] = response.data;
-          const singleBlogPost: BlogPost = allBlogPosts[0];
+          const response = await axios.get(
+            `http://localhost:3000/post/${postId}`
+          );
+          const singleBlogPost: BlogPost = response.data;
           setBlogPost(singleBlogPost);
         } catch (error) {
           console.error("Error fetching data:", error);
@@ -30,12 +31,45 @@ const ViewPost = () => {
     }
   }, [postId]);
 
+  const handleDeleteClick = async () => {
+    await axios.delete(`http://localhost:3000/post/${postId}`);
+    navigate("/");
+  };
+
+  const handleEditClick = () => {
+    navigate(`/Edit/${postId}`);
+  };
+
   if (blogPost) {
     return (
       <>
         <PageHeader />
-        <Post postData={blogPost} />
-        <Link to={`/Edit/${postId}`}>Edit Post</Link>
+        <div className="postContainer">
+          <div style={{width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+          <ArrowBackIcon fontSize="large" onClick={() => navigate("/")} style={{cursor: 'pointer'}}/>
+          <Post postData={blogPost} />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              gap: "10px",
+              width: "100%",
+            }}
+          >
+            <Button variant="contained" onClick={handleEditClick} style={{backgroundColor: '#1E7F84'}}>
+              Edit Post
+            </Button>
+
+            <Button
+              style={{ backgroundColor: "#B03A2E" }}
+              variant="contained"
+              onClick={handleDeleteClick}
+            >
+              Delete Post
+            </Button>
+          </div>
+        </div>
       </>
     );
   }

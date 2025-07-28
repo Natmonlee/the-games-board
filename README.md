@@ -11,6 +11,7 @@ The frontend is hosted on GitHub Pages and communicates with a backend hosted on
 
 ## Tech Stack
 
+- Vite
 - React (with TypeScript)
 - React Router (HashRouter)
 - Material UI

@@ -1,72 +1,75 @@
-# React + TypeScript + Vite
 
-<a href="https://www.flaticon.com/free-icons/meeple" title="meeple icons">Meeple icons created by WhoCon - Flaticon</a>
+# The Games Board - Frontend
 
+A React app where the public can view, create, update, and delete blog posts.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Live Demo
 
-Currently, two official plugins are available:
+https://natmonlee.github.io/the-games-board/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The frontend is hosted on GitHub Pages and communicates with a backend hosted on an AWS EC2 instance using a PostgreSQL database.
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React (with TypeScript)
+- React Router (HashRouter)
+- Material UI
+- CSS
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Install and Run Locally
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+Download files and unzip or clone with command below
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+  git clone https://github.com/Natmonlee/the-games-board.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Go to the project directory
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+  cd the-games-board
 ```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the app
+
+```bash
+  npm run dev
+```
+
+## Potential Improvements
+
+- Separate in-line CSS into dedicated stylesheet or CSS modules.
+- Improve responsiveness across devices.
+- Add better navigation (e.g. navbar, keyboard shortcuts).
+- Show loading spinners during async operations.
+- Add confirmation popup before deleting a post.
+- Add features such as:
+  Images, tags, comments, likes, view counts.
+  Search or filter functionality.
+- Display cleaner and more user-friendly error messages.
+- Show character limits on inputs.
+- Auto-refresh post list or add a manual refresh button.
+- Dockerize the app for easier deployment.
+- Implement front end testing.
+
+## Reflections
+
+- I focused on using semantic HTML elements to improve clarity and accessibility.
+- I built the app with responsiveness in mind from the start, though it still has room for improvement.
+- I initially planned to use Tailwind CSS, but due to time constraints and my unfamiliarity with it, I opted for vanilla CSS. I plan to revisit       Tailwind in the future.
+- I used HashRouter instead of regular routing because GitHub Pages doesn't support client-side routing. Hash-based routing ensures direct links work without 404 errors.
+- I added location-based switching to interact with live or local database.
+- I reused components where possible — for example, the same form is used for both creating and editing posts by passing an optional pageId prop.
+- I chose Material UI to handle styling for interactive components (like hover states and resizable text areas) more efficiently.
+- I wasn’t entirely happy with the visual design — I ran out of time to polish the layout and style, but the functionality is complete.
+
+## Acknowledgements
+
+https://www.flaticon.com/free-icons/meeple
+Meeple icons created by WhoCon - Flaticon

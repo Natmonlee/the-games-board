@@ -3,31 +3,43 @@ import type BlogPost from "../types/BlogPost.ts";
 type Props = {
   postData: BlogPost;
 };
-const Post = ({ postData }: Props) => {
-  const { content, author, tagline, createdAt } = postData;
 
-  const timestamp = new Date(createdAt);
+const dateOptions: Intl.DateTimeFormatOptions = {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+  hour: "2-digit",
+  minute: "2-digit",
+};
+
+const Post = ({ postData }: Props) => {
+  const { content, author, tagline, createdAt, updatedAt } = postData;
+
+  const createdTimestamp = new Date(createdAt);
+  const updatedTimestamp = new Date(updatedAt);
+
+  // Check if we want to show that post has been updated
+  const isUpdated = updatedTimestamp.toString() !== createdTimestamp.toString();
 
   return (
     <article className="post">
-      <h2 style={{padding: '0px 20px'}} >{tagline}</h2>
-      <div style={{ display: "flex", fontSize: "14px", padding: '0px 20px' }}>
+      <h2 style={{ padding: "0px 25px", textAlign: "center" }}>{tagline}</h2>
+      <div className="postDetails">
+        <p>
+          <b>{author}</b>
+        </p>
         <span>
-          <i>{author}</i>
+          Created - {createdTimestamp.toLocaleString(undefined, dateOptions)}
+          {isUpdated && (
+            <>
+              <br />
+              Updated -{" "}
+              {updatedTimestamp.toLocaleString(undefined, dateOptions)}
+            </>
+          )}
         </span>
-        <time> - {timestamp.toLocaleDateString()}</time>
       </div>
-      <p
-        style={{
-          backgroundColor: "#fbf1dc",
-          padding: "10px",
-          margin: "0px 20px",
-          border: "1px solid #D6D0C4",
-          borderRadius: "4px",
-        }}
-      >
-        {content}
-      </p>
+      <p className="postContent">{content}</p>
     </article>
   );
 };

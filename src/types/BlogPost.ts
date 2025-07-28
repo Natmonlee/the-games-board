@@ -4,4 +4,5 @@ export default interface BlogPost {
   tagline: string;
   content: string;
   createdAt: Date;  
+  updatedAt: Date;
 }

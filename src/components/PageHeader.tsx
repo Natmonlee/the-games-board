@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
 
-
-
 const PageHeader = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
-    <header onClick={() => navigate("/")} style={{cursor: "pointer", userSelect: 'none'}}>
+    <header
+    // For easy navigation to homepage
+      onClick={() => navigate("/")}
+      style={{ cursor: "pointer", userSelect: "none" }}
+    >
       <img
         src="/assets/images/bannerImage.jpg"
         alt=""

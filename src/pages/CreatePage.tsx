@@ -1,7 +1,7 @@
 import EditPost from "../components/EditPost.tsx";
 
-const Create = () => {
+const CreatePage = () => {
     return <EditPost />;
 };
 
-export default Create;
+export default CreatePage;

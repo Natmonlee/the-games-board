@@ -1,13 +1,19 @@
 html,
 #root {
-  max-width: 100%;
+  width: 100%;
   margin: 0;
 }
 
 body {
   background-color: #fbf1dc;
   font-family: Arial, Helvetica, sans-serif;
-  color: 	#2C2C2C;
+  color: #2c2c2c;
+  margin: 0;
+  width: 100%;
+}
+
+p,
+h2 {
   margin: 0;
 }
 
@@ -19,12 +25,6 @@ header {
   position: relative;
   max-height: 20vh;
   box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
-
-}
-
-p,
-h2 {
-  margin: 0;
 }
 
 .full-width {
@@ -33,30 +33,18 @@ h2 {
   justify-content: center;
 }
 
-.overlay-text {
-  position: absolute;
-  color: #2C2C2C;
-  font-size: clamp(2rem, 6vw, 5rem);
-  font-family: "Bebas Neue", sans-serif;
-  text-align: center;
-  text-shadow: 2px 2px 5px rgba(212, 175, 55, 0.438);
-}
-
 .postContainer {
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  .post {
-    cursor: pointer;
-  }
 }
 
 .post {
   display: flex;
   flex-direction: column;
-  border: 1px solid #D6D0C4;
+  border: 1px solid #d6d0c4;
   border-radius: 5px;
   box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
   height: fit-content;
@@ -66,9 +54,55 @@ h2 {
   width: 70%;
   background-color: #f7e3be;
   white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 
 .textField {
   background-color: #fbf1dc;
   white-space: pre-wrap;
+}
+
+.overlay-text {
+  position: absolute;
+  color: #2c2c2c;
+  font-size: clamp(2rem, 6vw, 5rem);
+  font-family: "Bebas Neue", sans-serif;
+  text-align: center;
+  text-shadow: 2px 2px 5px rgba(212, 175, 55, 0.438);
+}
+
+.buttonPrimary {
+  background-color: #1e7f84;
+}
+
+.buttonSecondary {
+  background-color: #a09b92;
+}
+
+.postDetails {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 20px;
+  gap: 20px;
+}
+
+.postFormDetails {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
+
+/* switch to column layout on narrow devices */
+@media only screen and (max-width: 500px) {
+  .postDetails {
+    flex-direction: column;
+  }
+}
+
+.postContent {
+  background-color: #fbf1dc;
+  padding: 10px;
+  margin: 0px 20px;
+  border: 1px solid #d6d0c4;
+  border-radius: 4px;
 }

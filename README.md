@@ -5,9 +5,9 @@ A React app where the public can view, create, update, and delete blog posts.
 
 ## Live Demo
 
-https://the-games-board.vercel.app/
+http://51.21.202.149/
 
-The frontend is hosted on Vercel and communicates with a backend hosted on an AWS EC2 instance using a PostgreSQL database.
+The frontend and backend are hosted on an AWS EC2 instance using a PostgreSQL database.
 
 ## Tech Stack
 

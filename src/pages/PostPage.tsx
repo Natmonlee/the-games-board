@@ -52,7 +52,7 @@ const ViewPost = () => {
     return (
       <>
         <PageHeader />
-        <div className="postContainer">
+        <div className="postContainer notClickable">
           <div
             style={{
               width: "100%",
